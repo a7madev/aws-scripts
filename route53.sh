@@ -28,5 +28,12 @@ fi
 # find the zone id
 zone_id=$(aws route53 list-hosted-zones --query "HostedZones[?Name == '$hosted_zone']" | jq -c '.[] | .Id | sub("/hostedzone/"; "")' | tr -d '"')
 
+# validate zone id
+if [[ -z "$zone_id" ]]
+then
+  echo "Error: Could not find Zone ID";
+  exit;
+fi
+
 # find the record
 aws route53 list-resource-record-sets --hosted-zone-id $zone_id --query "ResourceRecordSets[?Name == '$resource_record']" --output $output
