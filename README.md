@@ -1,2 +1,1 @@
-# aws-scripts
-AWS CLI Script
+# AWS CLI Scripts
